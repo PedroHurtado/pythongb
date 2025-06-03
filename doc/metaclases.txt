@@ -1,0 +1,15 @@
+class EntityMeta(type):
+    def __new__(cls, name, bases, dct):
+        def __eq__(self, other):
+            if isinstance(other, self.__class__):
+                return getattr(self, "id", None) == getattr(other, "id", None)
+            return False
+
+        def __hash__(self):
+            return hash(getattr(self, "id", None))
+
+        # Solo agregar si no está definido manualmente
+        dct.setdefault("__eq__", __eq__)
+        dct.setdefault("__hash__", __hash__)
+
+        return super().__new__(cls, name, bases, dct)
