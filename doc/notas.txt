@@ -1,0 +1,15 @@
+__init__-->super.__init__
+__del__
+
+class MiClase:
+    def __init__(self, id, nombre):
+        self.id = id
+        self.nombre = nombre
+
+    def __eq__(self, other):
+        if isinstance(other, MiClase):
+            return self.id == other.id
+        return False
+
+    def __hash__(self):
+        return hash(self.id)
