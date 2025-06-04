@@ -1,20 +1,18 @@
 from ingredient import Ingredient
+from entitybase import EntityBase
 
-class Pizza:
+class Pizza(EntityBase):
 
     def __init__(self, id:int,name:str,description:str,ingredients:set[Ingredient]):
-        self.__id = id
+        super().__init__(id)
         self.__name = name
         self.__description = description
         self.__ingredients = ingredients.copy()
 
     def update(self, name:str,description:str):
         self.__name = name
-        self.__description = description
+        self.__description = description   
     
-    @property
-    def id(self):
-        return self.__id
     
     @property 
     def name(self):
