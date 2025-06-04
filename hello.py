@@ -12,6 +12,7 @@ def x(a):
 @x("Hola decorada")
 def decorada(b):   #clousure decorator
     print(b)
+    
 @x("Hola r")
 def r():
     print("r")
