@@ -1,5 +1,27 @@
 from abc import ABC,abstractmethod
 
+from functools import wraps
+
+from functools import wraps
+
+def checktype(expected_type):
+    def decorator(func):
+        
+        #__name__ → el nombre de la función original
+        #__doc__ → el docstring
+        #__module__, __annotations__, etc.
+        #Sin @wraps, esos atributos se pierden y apuntan al wrapper.
+
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if not args:
+                raise ValueError("La función no recibió argumentos posicionales")
+            if not isinstance(args[0], expected_type):
+                raise TypeError(f"El primer argumento debe ser de tipo {expected_type.__name__}")
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
 class Ave(ABC):
     def __init__(self, peso):
         self.__peso = peso
