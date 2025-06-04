@@ -2,7 +2,7 @@ from ingredient import Ingredient
 
 class Pizza:
 
-    def __init__(self, id:int,name:str,description:str,ingredients:set):
+    def __init__(self, id:int,name:str,description:str,ingredients:set[Ingredient]):
         self.__id = id
         self.__name = name
         self.__description = description
@@ -36,7 +36,7 @@ class Pizza:
         #    price+=cost
         #return price * 1.2
         
-        return sum(i.cost for i in self.__ingredientes) * 1.2
+        return sum(ingredient.cost for ingredient in self.__ingredients) * 1.2
     
     def add_ingredient(self,ingredient:Ingredient):
         self.__ingredients.add(ingredient)

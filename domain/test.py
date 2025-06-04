@@ -17,6 +17,7 @@ def main():
     pizza.add_ingredient(Ingredient(1,"Piña",3.0))
 
     print(len(pizza.ingredients))
+    print(pizza.price)
     print("Fin")
 
 main()
