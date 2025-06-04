@@ -1,0 +1,28 @@
+import gc
+
+class AutoDestroy:
+    def __enter__(self):
+        print("Entrando al contexto")
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Saliendo del contexto")
+        self.cleanup()
+
+    def do_something(self):
+        print("Haciendo algo útil...")
+
+    def cleanup(self):
+        print("Limpiando recursos internamente...")
+        self.__dict__.clear()
+
+# Uso
+def usar_contexto():
+    with AutoDestroy() as obj:
+        obj.do_something()
+    # Aquí, si no hay más referencias, el objeto será recogido por GC
+
+usar_contexto()
+
+# Forzamos el recolector de basura (opcional)
+gc.collect()

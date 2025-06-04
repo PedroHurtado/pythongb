@@ -1,0 +1,91 @@
+from abc import ABC,abstractmethod
+
+class Ave(ABC):
+    def __init__(self, peso):
+        self.__peso = peso
+
+    @property
+    def peso(self):
+        return self.__peso
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+
+class AveVoladora(Ave, ABC):
+    def __init__(self, peso, velocidad):
+        super().__init__(peso)
+        self.__velocidad = velocidad
+
+    @property
+    def velocidad(self):
+        return self.__velocidad
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+
+class AveNoVoladora(Ave, ABC):  # Corregido el nombre
+    def __init__(self, peso):
+        super().__init__(peso)
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+
+class Pinguino(AveNoVoladora):
+    def __init__(self, peso):
+        super().__init__(peso)
+
+    def __str__(self):
+        return f"Pingüino de {self.peso} kg (no volador)"
+
+
+class Aguila(AveVoladora):
+    def __init__(self, peso, velocidad):
+        super().__init__(peso, velocidad)
+    def __str__(self):
+        return f"Águila de {self.peso} kg y velocidad {self.velocidad} km/h"
+
+
+class Paloma(AveVoladora):
+    def __init__(self, peso, velocidad):
+        super().__init__(peso, velocidad)
+    def __str__(self):
+        return f"Peso de {self.peso} kg y velocidad {self.velocidad} km/h"
+    
+def print_ave(ave: Ave, printer=print):
+    if not isinstance(ave, Ave):
+        raise TypeError("El objeto proporcionado no es una instancia de Ave ni de una subclase.")
+    printer(ave)
+
+def print_ave_voladora(ave: AveVoladora, printer=print):
+    if not isinstance(ave, AveVoladora):
+        raise TypeError("El objeto proporcionado no es una instancia de AveVoladora.")
+    printer(ave)
+
+def print_ave_no_voladora(ave: AveNoVoladora, printer=print):
+    if not isinstance(ave, AveNoVoladora):
+        raise TypeError("El objeto proporcionado no es una instancia de AveNoVoladora.")
+    printer(ave)
+
+def main():
+    pinguino = Pinguino(5)
+    aguila = Aguila(10,100)
+
+    print_ave(pinguino)
+    print_ave(aguila)
+
+    print_ave_voladora(aguila)
+
+    # print_ave_voladora(pinguino) TypeError
+
+    print_ave_no_voladora(pinguino)
+
+    # print_ave_no_voladora(aguila) TypeError
+    
+main()
+
