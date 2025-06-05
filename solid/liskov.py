@@ -2,7 +2,6 @@ from abc import ABC,abstractmethod
 
 from functools import wraps
 
-from functools import wraps
 
 def checktype(expected_type):
     def decorator(func):
@@ -10,9 +9,10 @@ def checktype(expected_type):
         #__name__ → el nombre de la función original
         #__doc__ → el docstring
         #__module__, __annotations__, etc.
-        #Sin @wraps, esos atributos se pierden y apuntan al wrapper.
+        #Sin wraps, esos atributos se pierden y apuntan al wrapper.
 
-        @wraps(func)
+        wraps(func)
+
         def wrapper(*args, **kwargs):
             if not args:
                 raise ValueError("La función no recibió argumentos posicionales")
@@ -78,20 +78,15 @@ class Paloma(AveVoladora):
         super().__init__(peso, velocidad)
     def __str__(self):
         return f"Peso de {self.peso} kg y velocidad {self.velocidad} km/h"
-    
-def print_ave(ave: Ave, printer=print):
-    if not isinstance(ave, Ave):
-        raise TypeError("El objeto proporcionado no es una instancia de Ave ni de una subclase.")
-    printer(ave)
 
-def print_ave_voladora(ave: AveVoladora, printer=print):
-    if not isinstance(ave, AveVoladora):
-        raise TypeError("El objeto proporcionado no es una instancia de AveVoladora.")
+@checktype(Ave)   
+def print_ave(ave: Ave, printer=print):    
     printer(ave)
-
-def print_ave_no_voladora(ave: AveNoVoladora, printer=print):
-    if not isinstance(ave, AveNoVoladora):
-        raise TypeError("El objeto proporcionado no es una instancia de AveNoVoladora.")
+@checktype(AveVoladora)
+def print_ave_voladora(ave: AveVoladora, printer=print):    
+    printer(ave)
+@checktype(AveNoVoladora)
+def print_ave_no_voladora(ave: AveNoVoladora, printer=print):    
     printer(ave)
 
 def main():
@@ -103,7 +98,7 @@ def main():
 
     print_ave_voladora(aguila)
 
-    # print_ave_voladora(pinguino) TypeError
+    print_ave_voladora(pinguino) 
 
     print_ave_no_voladora(pinguino)
 

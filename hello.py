@@ -1,3 +1,4 @@
+
 def x(a):
     def decorator(func):
         def wrapper(*args,**kwargs):
@@ -13,9 +14,5 @@ def x(a):
 def decorada(b):   #clousure decorator
     print(b)
     
-@x("Hola r")
-def r():
-    print("r")
 
 decorada("decorada")  #antes ejecutas el wrapper
-r()
