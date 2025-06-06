@@ -1,5 +1,7 @@
+import copy
 from ingredient import Ingredient
 from entitybase import EntityBase
+
 
 class Pizza(EntityBase):
 
@@ -7,7 +9,7 @@ class Pizza(EntityBase):
         super().__init__(id)
         self.__name = name
         self.__description = description
-        self.__ingredients = ingredients.copy()
+        self.__ingredients = copy.deepcopy(ingredients)
 
     def update(self, name:str,description:str):
         self.__name = name
@@ -22,9 +24,9 @@ class Pizza(EntityBase):
     def description(self):
         return self.__description
     
-    @property
+    @property    
     def ingredients(self):
-        return self.__ingredients.copy()
+        return copy.deepcopy(self.__ingredients)
     
     @property 
     def price(self):
