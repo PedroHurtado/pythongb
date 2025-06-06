@@ -1,18 +1,12 @@
+def fn(a):
+    if a==8:
+        return "Dato no valido"
+    return a
 
-def x(a):
-    def decorator(func):
-        def wrapper(*args,**kwargs):
-            print(a)
-            result = func(*args,**kwargs)
-            print(a)
-            return result
-        return wrapper
-    return decorator
+source = [1,2,3,4,5,6,7,8,9,10]
 
-
-@x("Hola decorada")
-def decorada(b):   #clousure decorator
-    print(b)
-    
-
-decorada("decorada")  #antes ejecutas el wrapper
+for v in source:
+    try:
+        print(fn(v))
+    except Exception:
+        pass

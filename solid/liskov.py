@@ -11,8 +11,8 @@ def checktype(expected_type):
         #__module__, __annotations__, etc.
         #Sin wraps, esos atributos se pierden y apuntan al wrapper.
 
-        wraps(func)
-
+        
+        @wraps(func)
         def wrapper(*args, **kwargs):
             if not args:
                 raise ValueError("La función no recibió argumentos posicionales")
